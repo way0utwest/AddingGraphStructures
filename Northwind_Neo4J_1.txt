@@ -1,0 +1,21 @@
+# suppliers of produce
+MATCH (c:Category {categoryName:"Produce"})<--(:Product)<--(s:Supplier)
+RETURN DISTINCT s.companyName as ProduceSuppliers
+
+# customer with the most orders
+match (c:Customer)-[:PURCHASED]->(o:Order)
+return c.companyName, count(o) as orders
+order by orders desc
+limit 5
+
+# Customer orders with the product purchased most
+match (c:Customer)-[:PURCHASED]->(o:Order)-[:ORDERS]->(p:Product)
+return c.companyName, p.productName, count(o) as orders
+order by orders desc
+limit 5
+
+# let's add the product for ordering
+match (c:Customer)-[:PURCHASED]->(o:Order)-[:ORDERS]->(p:Product)
+return c.companyName, p.productName, count(o) as orders
+order by orders desc, p.productName
+limit 5
