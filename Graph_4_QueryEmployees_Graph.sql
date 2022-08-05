@@ -149,7 +149,6 @@ GO
 
 
 -- Query for data
-
 -- Who works with whom
 SELECT emp1.FirstName + ', ' + emp1.Title AS Employee, 
        emp2.FirstName + ', ' + emp2.Title as CoWorker

@@ -125,6 +125,8 @@ INSERT dbo.CoWorker
 VALUES
   (@i, @j, 'Works With')
 GO
+
+
 -- query coworkers
 SELECT e.EmployeeID
      , e.LastName

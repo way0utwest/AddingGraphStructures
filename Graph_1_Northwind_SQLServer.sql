@@ -66,6 +66,9 @@ SELECT TOP 5 c.CompanyName, p.ProductName, COUNT(o.OrderID) AS Orders
  ON p.ProductID = od.ProductID
  GROUP BY c.CompanyName, p.ProductName
  ORDER BY Orders desc
+
+
+
  /*
  # Customer orders with the product purchased most
 match (c:Customer)-[:PURCHASED]->(o:Order)-[:ORDERS]->(p:Product)
@@ -86,6 +89,7 @@ SELECT TOP 5 c.CompanyName, p.ProductName, COUNT(o.OrderID) AS Orders
  ON p.ProductID = od.ProductID
  GROUP BY p.ProductName, c.CompanyName
  ORDER BY Orders DESC, p.ProductName
+GO
 
  /*
  # let's add the product for ordering
