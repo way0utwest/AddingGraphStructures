@@ -1,0 +1,140 @@
+# get the graph
+MATCH (n) RETURN n
+
+
+
+# get a list of nodes (tables)
+MATCH (n) RETURN distinct labels(n)
+
+
+# Let's add employees
+# On disk, csv for employees. Let's load it.
+LOAD CSV WITH HEADERS FROM "file:///employees.csv" AS row
+MERGE (e:Employee {employeeID:row.employeeID})
+  ON CREATE SET e.firstName = row.firstName, e.lastName = row.lastName, e.title = row.title;
+
+# create relationships
+LOAD CSV WITH HEADERS FROM 'file:///employees.csv' AS row
+MATCH (employee:Employee {employeeID: row.employeeID})
+MATCH (manager:Employee {employeeID: row.reportsTo})
+MERGE (employee)-[:REPORTS_TO]->(manager);
+
+MATCH (e:Employee) return e.firstName;
+MATCH (e:Employee) return e.FirstName;
+
+# we can create an index:
+CREATE INDEX employeefirstname FOR (e:Employee) ON (e.firstName);
+
+
+#query relationships
+MATCH (e1:Employee)-[]-(e2:Employee)
+RETURN e1,e2 LIMIT 10;
+
+# query for specific relationships
+MATCH (e1:Employee)-[:REPORTS_TO]-(e2:Employee)
+RETURN e1,e2;
+
+# Reporting structure
+MATCH (e:Employee)<-[:REPORTS_TO]-(sub)
+RETURN sub.firstName + ', ' + sub.title AS employee,'Reports To', e.firstName + ', ' + e.title AS manager ;
+
+# add employee
+CREATE (e:Employee {employeeID: 10,firstName: 'Steve', lastName: 'Jones', title:'President'})
+RETURN e
+
+# Have Andrew report to Steve
+# note ID values because of different imports
+# THIS IS A CHALLENGE for ad hoc work
+MATCH (andrew:Employee {employeeID: '2'})
+MATCH (steve:Employee {employeeID: 10})
+MERGE (andrew)-[rel:REPORTS_TO]->(steve)
+
+# check things
+MATCH (e:Employee)<-[:REPORTS_TO]-(sub)
+RETURN sub.firstName AS employee,'Reports To', e.firstName AS manager ;
+
+# no data
+# why
+# data types -> 10 != "10"
+
+# fix
+match (e:Employee {firstName:'Steve'}) set e.employeeID = '10'
+
+
+# repeat
+CREATE (e:Employee {employeeID: '11', firstName: 'Tia', lastName: 'Jones', title:'CEO'})
+RETURN e
+
+# repeat relationship
+MATCH (steve:Employee {employeeID: '10'})
+MATCH (tia:Employee {employeeID: '11'})
+MERGE (steve)-[rel:REPORTS_TO]->(tia)
+
+# check
+MATCH (e:Employee)<-[:REPORTS_TO]-(sub)
+RETURN sub.firstName AS employee,'Reports To', e.firstName AS manager ;
+
+# new relationships:
+MATCH (steve:Employee {employeeID: '10'})
+MATCH (tia:Employee {employeeID: '11'})
+CREATE (steve)-[rel:WORKS_WITH]->(tia)
+
+MATCH (laura:Employee {employeeID: '8'})
+MATCH (andrew:Employee {employeeID: '2'})
+CREATE (laura)-[rel:WORKS_WITH]->(andrew)
+
+MATCH (laura:Employee {employeeID: '8'})
+MATCH (steven:Employee {employeeID: '5'})
+CREATE (laura)-[rel:WORKS_WITH]->(steven)
+
+
+# some with properties
+MATCH (nancy:Employee {employeeID: '1'})
+MATCH (janet:Employee {employeeID: '3'})
+CREATE (nancy)-[rel:WORKS_WITH {project:"alpha"}]->(janet)
+
+MATCH (anne:Employee {employeeID: '9'})
+MATCH (robert:Employee {employeeID: '7'})
+CREATE (anne)-[rel:WORKS_WITH {project:"alpha"} ]->(robert)
+
+# works with
+MATCH (e:Employee)<-[:WORKS_WITH]-(sub)
+RETURN sub.firstName AS employee,'works with', e.firstName AS Coworker ;
+
+MATCH (e:Employee)<-[:WORKS_WITH {project:"alpha"}]-(sub)
+RETURN sub.firstName AS employee,'works with', e.firstName AS Coworker ;
+
+
+
+# Delete relationships
+
+# Delete Steve
+MATCH (e:Employee {employeeID:10})
+DETACH DELETE e
+
+# Doesn't work
+# Need to be case sensitive and datatype correct
+
+# Delete Steve
+MATCH (e:Employee {employeeID:"10"})
+DETACH DELETE e
+
+# Delete Tia (don't need to, deleted below)
+MATCH (e:Employee {employeeID:"11"})
+DETACH DELETE e
+
+# Delete Employees
+MATCH (e:Employee )
+DETACH DELETE e
+
+
+# get a list of tables
+MATCH (n) RETURN distinct labels(n)
+
+
+# Shortest path example
+# Open Movie database
+MATCH p=shortestPath(
+              (bacon:Person {name:"Kevin Bacon"})-[*]-(a:Person {name:'Al Pacino'})
+            )
+RETURN p

@@ -1,0 +1,27 @@
+# docker run -p 6379:6379 -it --rm redislabs/redisgraph
+
+
+GRAPH.QUERY Northwind "CREATE (:employee {employeeID: 10, firstName:'Steve', title:'President'})-[:REPORTS_TO]->(:employee {employeeID: 11, firstName:'Tia', title:'CEO'})"
+
+
+# check the values
+GRAPH.QUERY Northwind "MATCH (e:employee { firstName :'Tia' } ) return e"
+
+GRAPH.QUERY Northwind "MATCH (e:employee ) return e"
+
+
+# is there a relationship
+GRAPH.QUERY Northwind "MATCH (e:employee)<-[:REPORTS_TO]-(sub) RETURN sub.firstName as employee, e.firstName as manager"
+
+
+# add another
+GRAPH.QUERY Northwind "CREATE (:employee {firstName:'Andrew', title:'Vice President-Sales'})"
+
+# add relationship
+GRAPH.QUERY Northwind "MATCH (e:employee), (m:employee) WHERE e.firstName = 'Andrew' and m.firstName = 'Steve' CREATE (e)-[:REPORTS_TO]->(m)"
+
+# query
+GRAPH.QUERY Northwind "MATCH (e:employee)<-[:REPORTS_TO]-(sub) RETURN sub.firstName as employee, e.firstName as manager"
+
+
+ GRAPH.DELETE Northwind
