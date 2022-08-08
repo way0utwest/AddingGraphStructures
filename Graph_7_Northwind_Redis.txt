@@ -7,6 +7,7 @@ GRAPH.QUERY Northwind "CREATE (:employee {employeeID: 10, firstName:'Steve', tit
 # check the values
 GRAPH.QUERY Northwind "MATCH (e:employee { firstName :'Tia' } ) return e"
 
+# two nodes
 GRAPH.QUERY Northwind "MATCH (e:employee ) return e"
 
 
