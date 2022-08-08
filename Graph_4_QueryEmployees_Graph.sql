@@ -150,6 +150,8 @@ GO
 
 -- Query for data
 -- Who works with whom
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
 SELECT emp1.FirstName + ', ' + emp1.Title AS Employee, 
        emp2.FirstName + ', ' + emp2.Title as CoWorker
 FROM GraphEmployees emp1, WorksWith, GraphEmployees emp2
@@ -180,6 +182,8 @@ SELECT e2.FirstName + ', ' + e.Title AS Employee
  ON cw.EmployeeID2 = e2.EmployeeID
  ORDER BY Employee, CoWorker
 GO
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
 
 
 
