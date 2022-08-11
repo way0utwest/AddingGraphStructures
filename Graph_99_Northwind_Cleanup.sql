@@ -3,6 +3,8 @@ Adding Graph Structures
 
 Cleanup
 
+Remove items added to Northwind
+
 */
 USE Northwind
 GO

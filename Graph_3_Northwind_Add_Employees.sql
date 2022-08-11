@@ -1,6 +1,9 @@
 /*
 Adding Graph Structures - Hierarchy Queries Relational
 
+This code queries the Northwind employee hierarchy in a recursive manner. The
+statistics for the query are returned. Pay attention to the logical reads.
+
 Steve Jones, copyright 2022
 
 This code is provided as is for demonstration purposes. It may not be suitable for

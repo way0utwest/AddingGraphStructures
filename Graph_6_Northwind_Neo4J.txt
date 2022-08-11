@@ -1,3 +1,20 @@
+/*
+Adding Graph Structures - Neo4J Demo
+
+This code is a series of queries to examine Northwind in Neo4J. This code does require
+that the Northwind Employee.csv file is moved into the database import folder from the proejcts
+folder in Neo4J desktop. This duplicates the structures created in the Northwind SQL Server
+database by previous code in this repo.
+
+Steve Jones, copyright 2022
+
+This code is provided as is for demonstration purposes. It may not be suitable for
+your environment. Please test this on your own systems. This code may not be republished 
+or redistributed by anyone without permission.
+
+You are free to use this code inside of your own organization.
+*/
+
 # get the graph
 MATCH (n) RETURN n
 

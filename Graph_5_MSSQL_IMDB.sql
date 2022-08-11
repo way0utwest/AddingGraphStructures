@@ -1,6 +1,11 @@
 /*
 Adding Graph Structures - Kevin Bacon Queries
 
+I have code for the IMDB database loaded into a SQL Server database named IMDB. This 
+should run in SQL Server 2019, but I have had issues with the relational code and some
+patch levels of SQL Server 2019. The equivalent Neo4J query is shown for the sample Movie 
+database.
+
 Steve Jones, copyright 2022
 
 This code is provided as is for demonstration purposes. It may not be suitable for
@@ -14,7 +19,7 @@ GO
 /*
 Relational code
 */
-declare @actor varchar(100) = 'Tom Hanks'
+declare @actor varchar(100) = 'A Pacino'
 	SET NOCOUNT ON;
 	DECLARE @actor1 nvarchar(1000), @movie1 nvarchar(1000), @year1 nvarchar(5),
 		@actor2 nvarchar(1000), @movie2 nvarchar(1000), @year2 nvarchar(5),

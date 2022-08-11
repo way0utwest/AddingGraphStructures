@@ -1,6 +1,9 @@
 /*
 Adding Graph Structures - Northwind Demo
 
+This is a comparison of Northwind queries in a SQL Server relational structure
+with Nothwind queries using the Neo4j Northwind sample.
+
 Steve Jones, copyright 2022
 
 This code is provided as is for demonstration purposes. It may not be suitable for

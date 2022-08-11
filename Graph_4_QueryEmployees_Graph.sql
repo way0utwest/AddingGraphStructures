@@ -1,6 +1,8 @@
 /*
 Adding Graph Structures - Hierarchy Queries Graph
 
+This code implements a hierarchy in SQL Server 2017+ using graph database structures.
+
 Steve Jones, copyright 2022
 
 This code is provided as is for demonstration purposes. It may not be suitable for
@@ -85,7 +87,12 @@ INSERT INTO ReportsTo ($from_id, $to_id) VALUES (
   (SELECT $node_id FROM GraphEmployees WHERE EmpID = 9), 
   (SELECT $node_id FROM GraphEmployees WHERE EmpID = 5));
 GO
-
+SELECT top 10
+ *
+ FROM dbo.ReportsTo
+ /*
+ {"type":"node","schema":"dbo","table":"GraphEmployees","id":3}
+ */
 SET STATISTICS IO ON
 SET STATISTICS TIME ON
 -- Who reports to whom

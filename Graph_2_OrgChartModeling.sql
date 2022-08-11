@@ -1,5 +1,8 @@
 /*
-Adding Graph Structures - Northwind Modeling
+Adding Graph Structures - Northwind Hierarchy Modeling in a relational structure
+
+This code implements a hierarchy and the works with structure using relational tables
+and modeling techniques.
 
 Steve Jones, copyright 2022
 
