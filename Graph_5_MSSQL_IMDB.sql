@@ -18,6 +18,8 @@ USE IMDB
 GO
 /*
 Relational code
+
+If this database exists, you can set some variables and then run a query
 */
 declare @actor varchar(100) = 'A Pacino'
 	SET NOCOUNT ON;
@@ -75,6 +77,8 @@ declare @actor varchar(100) = 'A Pacino'
 
 /*
 SQL Server 2017+ Graph Query
+
+This ran for over an hour on my machine
 */
 SELECT PersonName, Friends
  FROM (

@@ -71,8 +71,9 @@ MATCH (e:Employee)<-[:REPORTS_TO]-(sub)
 RETURN sub.firstName AS employee,'Reports To', e.firstName AS manager ;
 
 # no data
-# why
+# why not?
 # data types -> 10 != "10"
+# We need to change this
 
 # fix - we need this as every other node has a string ID
 match (e:Employee {firstName:'Steve'}) set e.employeeID = '10'
@@ -127,9 +128,11 @@ MATCH (anne:Employee {employeeID: '9'})
 MATCH (robert:Employee {employeeID: '7'})
 CREATE (anne)-[rel:WORKS_WITH {project:"alpha"} ]->(robert);
 
+# everyone who works with someone
 MATCH (e:Employee)<-[:WORKS_WITH]-(sub)
 RETURN sub.firstName AS employee,'works with', e.firstName AS Coworker ;
 
+# limit return to a specific project
 MATCH (e:Employee)<-[:WORKS_WITH {project:"alpha"}]-(sub)
 RETURN sub.firstName AS employee,'works with', e.firstName AS Coworker ;
 
