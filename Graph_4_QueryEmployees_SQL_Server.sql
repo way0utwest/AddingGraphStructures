@@ -206,6 +206,8 @@ SET STATISTICS TIME OFF
 GO
 
 
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
 
 -- Find potential conflicts
 -- Who works with whom and reports to them
@@ -230,4 +232,7 @@ SELECT e.FirstName + ', ' + e.Title AS Employee
  ON cw.EmployeeID2 = e2.EmployeeID
  WHERE e.ReportsTo = e2.EmployeeID
  ORDER BY Employee, Coworker;
+GO
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
 	   

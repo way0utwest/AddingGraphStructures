@@ -102,5 +102,5 @@ order by orders desc, p.productName
 limit 5
  */
 
- -- Adding ordering helps
- 
+-- Adding ordering helps
+-- when there are data values that tie
