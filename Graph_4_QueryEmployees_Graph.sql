@@ -168,6 +168,7 @@ GO
 
 
 -- query coworkers
+-- We use two queries to get the who works with whom, both sides of the relationship.
 SELECT e.FirstName + ', ' + e.Title AS Employee
 	 , cw.Relationship
 	 , e2.FirstName + ', ' + e2.Title AS Coworker
@@ -191,8 +192,14 @@ SELECT e2.FirstName + ', ' + e.Title AS Employee
 GO
 SET STATISTICS IO OFF
 SET STATISTICS TIME OFF
+GO
 
 
+
+-- Two types of queries here.
+-- both do the same thing
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
 
 -- Find potential conflicts
 -- Who works with whom and reports to them
@@ -203,6 +210,8 @@ WHERE MATCH(emp1-(WorksWith)->emp2)
 AND  MATCH(emp1-(ReportsTo)->emp2)
 ORDER BY Employee, Manager;
 GO
+-- This is a simpler query to read and write.
+-- Makes more sense, which can reduce errors.
 
 
 -- Who works with whom and reports to them
@@ -217,4 +226,8 @@ SELECT e.FirstName + ', ' + e.Title AS Employee
  ON cw.EmployeeID2 = e2.EmployeeID
  WHERE e.ReportsTo = e2.EmployeeID
  ORDER BY Employee, Coworker;
+GO
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
+GO
 	   
