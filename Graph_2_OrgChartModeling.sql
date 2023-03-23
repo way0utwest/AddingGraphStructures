@@ -17,9 +17,7 @@ GO
 
 -- Basic query of employees reporting to others
 SELECT e.EmployeeID,
-       e.LastName,
-       e.FirstName,
-       e.Title,
+       e.FirstName + ' ' + e.LastName + ', ' + e.Title AS Employee,
        e2.FirstName + ' ' + e2.LastName + ', ' + e2.Title AS ReportsTo
 FROM Employees e
     INNER JOIN dbo.Employees e2
@@ -60,9 +58,7 @@ GO
  
  -- requery
 SELECT e.EmployeeID,
-       e.LastName,
-       e.FirstName,
-       e.Title,
+       e.FirstName + ' ' + e.LastName + ', ' + e.Title AS Employee,
        e2.FirstName + ' ' + e2.LastName + ', ' + e2.Title AS ReportsTo
 FROM Employees e
     INNER JOIN dbo.Employees e2
@@ -132,9 +128,7 @@ GO
 
 -- query coworkers
 SELECT e.EmployeeID
-     , e.LastName
-     , e.FirstName
-     , e.Title
+	 , e.FirstName + ' ' + e.LastName + ', ' + e.Title AS Employee
 	 , cw.Relationship
 	 , e2.FirstName + ' ' + e2.LastName + ', ' + e2.Title AS Coworker
  FROM dbo.Employees AS e

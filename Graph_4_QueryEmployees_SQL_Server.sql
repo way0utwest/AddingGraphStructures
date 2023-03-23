@@ -54,9 +54,9 @@ CREATE TABLE ReportsTo (as_of DATE DEFAULT GETDATE()) AS EDGE;
 5	Steven Buchanan	7	Robert King
 5	Steven Buchanan	9	Anne Dodsworth
 */
-INSERT INTO ReportsTo ($from_id, $to_id) VALUES (
+INSERT INTO ReportsTo ($from_id, $to_id, as_of) VALUES (
   (SELECT $node_id FROM GraphEmployees WHERE EmpID = 10), 
-  (SELECT $node_id FROM GraphEmployees WHERE EmpID = 11));
+  (SELECT $node_id FROM GraphEmployees WHERE EmpID = 11), '2023-01-01');
 INSERT INTO ReportsTo ($from_id, $to_id) VALUES (
   (SELECT $node_id FROM GraphEmployees WHERE EmpID = 2), 
   (SELECT $node_id FROM GraphEmployees WHERE EmpID = 10));

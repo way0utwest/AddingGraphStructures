@@ -40,10 +40,10 @@ MERGE (employee)-[:REPORTS_TO]->(manager);
 MATCH (e:Employee) return e.FirstName;
 
 ## Problem? Case.
-MATCH (e:Employee) return e.firstName;
+M8ATCH (e:Employee) return e.firstName;
 
 # we can create an index:
-CREATE INDEX employeefirstname FOR (e:Employee) ON (e.firstName);
+#CREATE INDEX employeefirstname FOR (e:Employee) ON (e.firstName);
 
 
 #query relationships
@@ -83,6 +83,9 @@ MATCH (andrew:Employee {employeeID: '2'})
 MATCH (steve:Employee {employeeID: '10'})
 MERGE (andrew)-[rel:REPORTS_TO]->(steve)
 
+# check things again
+MATCH (e:Employee)<-[:REPORTS_TO]-(sub)
+RETURN sub.firstName AS employee,'Reports To', e.firstName AS manager ;
 
 # repeat
 CREATE (e:Employee {employeeID: '11', firstName: 'Tia', lastName: 'Jones', title:'CEO'})
